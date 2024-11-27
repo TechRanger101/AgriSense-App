@@ -1,0 +1,8 @@
+firebase_admin
+flask
+sentinelhub
+numpy
+python-dotenv
+requests
+pyjwt
+werkzeug

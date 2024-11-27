@@ -1,0 +1,19 @@
+[Unit]
+Description=gunicorn daemon (for rs-cicd)  # Added application name for clarity
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=jenkins
+Group=www-data
+WorkingDirectory=/var/lib/jenkins/workspace/rs-cicd
+ExecStart=/var/lib/jenkins/workspace/rs-cicd/myenv/bin/gunicorn \
+          --workers 3 \
+          --log-level debug \
+          --error-logfile /var/lib/jenkins/workspace/rs-cicd/error.log \
+          --capture-output \
+          --bind unix:/run/gunicorn.sock \
+          GIS.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
